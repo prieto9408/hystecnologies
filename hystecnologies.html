@@ -1,0 +1,949 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>H&S | Soporte en Sistemas y Comunicaciones EIRL</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3b82f6', // Blue-500
+                        secondary: '#0ea5e9', // Sky-500
+                        accent: '#7dd3fc', // Sky-300
+                        light: '#f0f9ff', // Sky-50 muy suave
+                        dark: '#1d4ed8', // Blue-700
+                        softBlue: '#f0f9ff', // Blue-50
+                        softSky: '#f0fdff', // Sky-50
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #f0f9ff 0%, #f0fdff 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-gradient::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+            z-index: 0;
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 30px 40px -15px rgba(59, 130, 246, 0.2), 0 20px 25px -10px rgba(14, 165, 233, 0.2);
+            border-color: #3b82f6;
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .nav-link:hover {
+            color: #3b82f6;
+            transform: translateY(-2px);
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #0ea5e9);
+            transition: width 0.3s ease;
+            border-radius: 3px;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        
+        .fade-in.appear {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .glow-button {
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .glow-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.8s;
+        }
+        
+        .glow-button:hover::before {
+            left: 100%;
+        }
+        
+        .glow-button:hover {
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
+            transform: translateY(-5px) scale(1.05);
+        }
+        
+        .pulse-icon {
+            animation: pulse-slow;
+        }
+        
+        .floating-element {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .text-gradient {
+            background: linear-gradient(90deg, #3b82f6, #0ea5e9, #3b82f6);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient-shift 3s ease infinite;
+        }
+        
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .card-glow:hover {
+            box-shadow: 0 0 40px rgba(59, 130, 246, 0.2);
+        }
+        
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Active section indicator */
+        .nav-link.active {
+            color: #3b82f6;
+            font-weight: 700;
+        }
+        
+        .nav-link.active::after {
+            width: 100%;
+        }
+        
+        .company-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            letter-spacing: -1px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .subtitle {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+        }
+        
+        .stat-number {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-size: 4rem;
+            line-height: 1;
+        }
+        
+        .stat-label {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50">
+    <!-- Header -->
+    <header class="fixed w-full bg-white/95 backdrop-blur-sm z-50 shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="w-14 h-14 bg-gradient-to-r from-primary to-secondary rounded-2xl flex items-center justify-center transform hover:rotate-12 transition-transform duration-500">
+                    <i class="fas fa-cogs text-white text-2xl"></i>
+                </div>
+                <div>
+                    <div class="company-title text-2xl text-gray-800">H&S</div>
+                    <div class="subtitle text-xs text-primary">Soporte en Sistemas y Comunicaciones EIRL</div>
+                </div>
+            </div>
+            
+            <nav class="hidden md:flex space-x-8">
+                <a href="#inicio" class="nav-link text-gray-700">Inicio</a>
+                <a href="#servicios" class="nav-link text-gray-700">Servicios</a>
+                <a href="#soluciones" class="nav-link text-gray-700">Soluciones</a>
+                <a href="#proyectos" class="nav-link text-gray-700">Proyectos</a>
+                <a href="#contacto" class="nav-link text-gray-700">Contacto</a>
+            </nav>
+            
+            <button class="bg-gradient-to-r from-primary to-secondary text-white px-6 py-3 rounded-full font-semibold hover:from-secondary hover:to-primary transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+                <i class="fas fa-headset mr-2"></i> Soporte 24/7
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero-gradient min-h-screen flex items-center">
+        <div class="container mx-auto px-4 py-20 relative z-10">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="fade-in">
+</br>
+              
+                    
+                    <span class="inline-block bg-gradient-to-r from-primary to-secondary text-white px-6 py-3 rounded-full text-lg font-bold mb-8 animate-pulse">SOLUCIONES TECNOLÓGICAS INTEGRALES</span>
+                    
+                    <h1 class="text-4xl md:text-6xl font-bold mb-8 leading-tight text-gray-800">
+                        Transformamos tu empresa con <span class="text-primary">soluciones tecnológicas</span> de <span class="text-secondary">alto impacto</span>
+                    </h1>
+                    
+                    <p class="text-xl mb-10 text-gray-700 leading-relaxed text-lg">
+                        Expertos en desarrollo de sistemas CRM, ERP y soluciones de comunicación que optimizan tus procesos y potencian tu crecimiento exponencial.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-6">
+                        <a href="#contacto" class="glow-button bg-gradient-to-r from-primary to-secondary text-white px-10 py-5 rounded-xl font-bold text-lg hover:from-secondary hover:to-primary transition-all duration-300 flex items-center justify-center shadow-xl">
+                            <i class="fas fa-rocket mr-3"></i> SOLICITAR CONSULTA
+                        </a>
+                        <a href="#servicios" class="border-3 border-primary text-primary px-10 py-5 rounded-xl font-bold text-lg hover:bg-primary hover:text-white transition-all duration-300 flex items-center justify-center shadow-lg hover:shadow-xl">
+                            <i class="fas fa-play-circle mr-3"></i> VER SERVICIOS
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="fade-in relative">
+                    <div class="absolute -inset-6 bg-gradient-to-r from-primary to-secondary rounded-3xl blur-2xl opacity-30 animate-pulse"></div>
+                    <div class="relative bg-white rounded-3xl p-2 shadow-2xl">
+                        <img src="https://placehold.co/650x500/3b82f6/white?text=SISTEMAS ROBUSTOS PARA DECISIONES INTELIGENTES" alt="Soluciones CRM y ERP" class="rounded-2xl">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <a href="#servicios" class="text-primary text-3xl">
+                <i class="fas fa-chevron-down"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-20 bg-gradient-to-r from-softBlue to-softSky">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8 text-center">
+                <div class="fade-in">
+                    <div class="stat-number text-primary mb-2">250+</div>
+                    <div class="stat-label text-gray-800 text-xl">Proyectos Completados</div>
+                </div>
+                <div class="fade-in">
+                    <div class="stat-number text-secondary mb-2">98%</div>
+                    <div class="stat-label text-gray-800 text-xl">Satisfacción Clientes</div>
+                </div>
+                <div class="fade-in">
+                    <div class="stat-number text-accent mb-2">15+</div>
+                    <div class="stat-label text-gray-800 text-xl">Años de Experiencia</div>
+                </div>
+                <div class="fade-in">
+                    <div class="stat-number text-primary mb-2">24/7</div>
+                    <div class="stat-label text-gray-800 text-xl">Soporte Continuo</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="servicios" class="py-24 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-20 fade-in">
+                <span class="inline-block bg-gradient-to-r from-primary to-secondary text-white px-8 py-3 rounded-full text-xl font-bold mb-8">NUESTROS SERVICIOS PREMIUM</span>
+                <h2 class="section-title text-5xl font-bold mb-6 text-gray-800">Soluciones <span class="text-primary">integrales</span> para tu empresa</h2>
+                <p class="text-2xl text-gray-600 max-w-4xl mx-auto">
+                    Desarrollamos tecnología a medida con enfoque estratégico para maximizar el rendimiento de tu negocio.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-12">
+                <!-- CRM Service -->
+                <div class="service-card bg-softBlue p-10 rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-500 border-2 border-transparent hover:border-primary card-glow relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-primary opacity-10 rounded-full -mt-16 -mr-16"></div>
+                    <div class="relative z-10">
+                        <div class="w-20 h-20 bg-primary rounded-2xl flex items-center justify-center mb-8 transform hover:rotate-12 transition-transform duration-500 mx-auto">
+                            <i class="fas fa-users text-white text-3xl"></i>
+                        </div>
+                        <h3 class="section-title text-3xl font-bold mb-6 text-center text-gray-800">SISTEMAS CRM INTELIGENTES</h3>
+                        <p class="text-gray-700 mb-8 text-lg leading-relaxed text-center">
+                            Plataformas que automatizan y optimizan la gestión de relaciones con clientes, aumentando tus ventas y fidelización.
+                        </p>
+                        <ul class="space-y-4 mb-10">
+                            <li class="flex items-start bg-white bg-opacity-50 p-4 rounded-xl">
+                                <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+                                    <i class="fas fa-check text-white text-xs"></i>
+                                </div>
+                                <span class="text-gray-800 font-medium">Automatización de procesos de ventas</span>
+                            </li>
+                            <li class="flex items-start bg-white bg-opacity-50 p-4 rounded-xl">
+                                <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+                                    <i class="fas fa-check text-white text-xs"></i>
+                                </div>
+                                <span class="text-gray-800 font-medium">Análisis predictivo de comportamiento</span>
+                            </li>
+                            <li class="flex items-start bg-white bg-opacity-50 p-4 rounded-xl">
+                                <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+                                    <i class="fas fa-check text-white text-xs"></i>
+                                </div>
+                                <span class="text-gray-800 font-medium">Integración multicanal completa</span>
+                            </li>
+                        </ul>
+                        <a href="#contacto" class="glow-button inline-flex items-center bg-primary text-white px-8 py-4 rounded-2xl font-bold hover:bg-secondary transition-all duration-300 justify-center w-full">
+                            IMPLEMENTAR CRM <i class="fas fa-arrow-right ml-3"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- ERP Service -->
+                <div class="service-card bg-softSky p-10 rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-500 border-2 border-transparent hover:border-secondary card-glow relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-secondary opacity-10 rounded-full -mt-16 -mr-16"></div>
+                    <div class="relative z-10">
+                        <div class="w-20 h-20 bg-secondary rounded-2xl flex items-center justify-center mb-8 transform hover:rotate-12 transition-transform duration-500 mx-auto">
+                            <i class="fas fa-chart-line text-white text-3xl"></i>
+                        </div>
+                        <h3 class="section-title text-3xl font-bold mb-6 text-center text-gray-800">SISTEMAS ERP INTEGRALES</h3>
+                        <p class="text-gray-700 mb-8 text-lg leading-relaxed text-center">
+                            Soluciones que integran y optimizan todos los procesos de tu empresa en una sola plataforma centralizada.
+                        </p>
+                        <ul class="space-y-4 mb-10">
+                            <li class="flex items-start bg-white bg-opacity-50 p-4 rounded-xl">
+                                <div class="w-8 h-8 bg-secondary rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+                                    <i class="fas fa-check text-white text-xs"></i>
+                                </div>
+                                <span class="text-gray-800 font-medium">Gestión financiera avanzada</span>
+                            </li>
+                            <li class="flex items-start bg-white bg-opacity-50 p-4 rounded-xl">
+                                <div class="w-8 h-8 bg-secondary rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+                                    <i class="fas fa-check text-white text-xs"></i>
+                                </div>
+                                <span class="text-gray-800 font-medium">Control de inventario en tiempo real</span>
+                            </li>
+                            <li class="flex items-start bg-white bg-opacity-50 p-4 rounded-xl">
+                                <div class="w-8 h-8 bg-secondary rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+                                    <i class="fas fa-check text-white text-xs"></i>
+                                </div>
+                                <span class="text-gray-800 font-medium">Dashboards de toma de decisiones</span>
+                            </li>
+                        </ul>
+                        <a href="#contacto" class="glow-button inline-flex items-center bg-secondary text-white px-8 py-4 rounded-2xl font-bold hover:bg-primary transition-all duration-300 justify-center w-full">
+                            IMPLEMENTAR ERP <i class="fas fa-arrow-right ml-3"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Communications Service -->
+                <div class="service-card bg-softBlue p-10 rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-500 border-2 border-transparent hover:border-accent card-glow relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-accent opacity-10 rounded-full -mt-16 -mr-16"></div>
+                    <div class="relative z-10">
+                        <div class="w-20 h-20 bg-gradient-to-r from-primary to-secondary rounded-2xl flex items-center justify-center mb-8 transform hover:rotate-12 transition-transform duration-500 mx-auto">
+                            <i class="fas fa-satellite-dish text-white text-3xl"></i>
+                        </div>
+                        <h3 class="section-title text-3xl font-bold mb-6 text-center text-gray-800">COMUNICACIONES EMPRESARIALES</h3>
+                        <p class="text-gray-700 mb-8 text-lg leading-relaxed text-center">
+                            Infraestructura de comunicaciones robusta y segura que garantiza la conectividad de tu organización.
+                        </p>
+                        <ul class="space-y-4 mb-10">
+                            <li class="flex items-start bg-white bg-opacity-50 p-4 rounded-xl">
+                                <div class="w-8 h-8 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+                                    <i class="fas fa-check text-white text-xs"></i>
+                                </div>
+                                <span class="text-gray-800 font-medium">Redes corporativas seguras</span>
+                            </li>
+                            <li class="flex items-start bg-white bg-opacity-50 p-4 rounded-xl">
+                                <div class="w-8 h-8 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+                                    <i class="fas fa-check text-white text-xs"></i>
+                                </div>
+                                <span class="text-gray-800 font-medium">Telefonía IP y VoIP empresarial</span>
+                            </li>
+                            <li class="flex items-start bg-white bg-opacity-50 p-4 rounded-xl">
+                                <div class="w-8 h-8 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+                                    <i class="fas fa-check text-white text-xs"></i>
+                                </div>
+                                <span class="text-gray-800 font-medium">Soporte técnico 24/7</span>
+                            </li>
+                        </ul>
+                        <a href="#contacto" class="glow-button inline-flex items-center bg-gradient-to-r from-primary to-secondary text-white px-8 py-4 rounded-2xl font-bold hover:from-secondary hover:to-primary transition-all duration-300 justify-center w-full">
+                            SOLICITAR SOPORTE <i class="fas fa-arrow-right ml-3"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solutions Section -->
+    <section id="soluciones" class="py-24 bg-gradient-to-r from-primary to-secondary text-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-20 fade-in">
+                <span class="inline-block bg-white bg-opacity-20 backdrop-blur-sm text-white px-8 py-3 rounded-full text-xl font-bold mb-8">SOLUCIONES DESTACADAS</span>
+                <h2 class="section-title text-5xl font-bold mb-6">Tecnología que <span class="text-blue-100">impulsa</span> tu negocio</h2>
+                <p class="text-2xl opacity-90 max-w-4xl mx-auto">
+                    Nuestras soluciones integrales resuelven los desafíos más complejos de las empresas modernas.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <div class="bg-white bg-opacity-10 backdrop-blur-sm p-8 rounded-3xl hover:bg-opacity-20 transition-all duration-500 transform hover:-translate-y-3 border border-white border-opacity-20">
+                    <div class="w-16 h-16 bg-white bg-opacity-20 rounded-2xl flex items-center justify-center mb-6 mx-auto">
+                        <i class="fas fa-robot text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-center">Automatización Inteligente</h3>
+                    <p class="text-center mb-6 opacity-90">
+                        Implementamos IA y machine learning para automatizar procesos repetitivos y liberar el potencial de tu equipo.
+                    </p>
+                    <div class="text-center">
+                        <span class="inline-block bg-white bg-opacity-20 px-4 py-2 rounded-full text-sm">ROI +250%</span>
+                    </div>
+                </div>
+                
+                <div class="bg-white bg-opacity-10 backdrop-blur-sm p-8 rounded-3xl hover:bg-opacity-20 transition-all duration-500 transform hover:-translate-y-3 border border-white border-opacity-20">
+                    <div class="w-16 h-16 bg-white bg-opacity-20 rounded-2xl flex items-center justify-center mb-6 mx-auto">
+                        <i class="fas fa-shield-alt text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-center">Ciberseguridad Proactiva</h3>
+                    <p class="text-center mb-6 opacity-90">
+                        Protegemos tus activos digitales con soluciones avanzadas de seguridad que previenen amenazas antes de que ocurran.
+                    </p>
+                    <div class="text-center">
+                        <span class="inline-block bg-white bg-opacity-20 px-4 py-2 rounded-full text-sm">Riesgo -90%</span>
+                    </div>
+                </div>
+                
+                <div class="bg-white bg-opacity-10 backdrop-blur-sm p-8 rounded-3xl hover:bg-opacity-20 transition-all duration-500 transform hover:-translate-y-3 border border-white border-opacity-20">
+                    <div class="w-16 h-16 bg-white bg-opacity-20 rounded-2xl flex items-center justify-center mb-6 mx-auto">
+                        <i class="fas fa-cloud text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-center">Infraestructura Cloud</h3>
+                    <p class="text-center mb-6 opacity-90">
+                        Migración y gestión de entornos cloud que escalan con tu negocio y reducen costos operativos significativamente.
+                    </p>
+                    <div class="text-center">
+                        <span class="inline-block bg-white bg-opacity-20 px-4 py-2 rounded-full text-sm">Costos -40%</span>
+                    </div>
+                </div>
+                
+                <div class="bg-white bg-opacity-10 backdrop-blur-sm p-8 rounded-3xl hover:bg-opacity-20 transition-all duration-500 transform hover:-translate-y-3 border border-white border-opacity-20">
+                    <div class="w-16 h-16 bg-white bg-opacity-20 rounded-2xl flex items-center justify-center mb-6 mx-auto">
+                        <i class="fas fa-mobile-alt text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-center">Aplicaciones Móviles</h3>
+                    <p class="text-center mb-6 opacity-90">
+                        Desarrollo de apps móviles que conectan con tus clientes y optimizan los procesos internos de tu organización.
+                    </p>
+                    <div class="text-center">
+                        <span class="inline-block bg-white bg-opacity-20 px-4 py-2 rounded-full text-sm">Engagement +300%</span>
+                    </div>
+                </div>
+                
+                <div class="bg-white bg-opacity-10 backdrop-blur-sm p-8 rounded-3xl hover:bg-opacity-20 transition-all duration-500 transform hover:-translate-y-3 border border-white border-opacity-20">
+                    <div class="w-16 h-16 bg-white bg-opacity-20 rounded-2xl flex items-center justify-center mb-6 mx-auto">
+                        <i class="fas fa-tachometer-alt text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-center">Business Intelligence</h3>
+                    <p class="text-center mb-6 opacity-90">
+                        Dashboards y herramientas de análisis que transforman tus datos en decisiones estratégicas de alto impacto.
+                    </p>
+                    <div class="text-center">
+                        <span class="inline-block bg-white bg-opacity-20 px-4 py-2 rounded-full text-sm">Decisión +80%</span>
+                    </div>
+                </div>
+                
+                <div class="bg-white bg-opacity-10 backdrop-blur-sm p-8 rounded-3xl hover:bg-opacity-20 transition-all duration-500 transform hover:-translate-y-3 border border-white border-opacity-20">
+                    <div class="w-16 h-16 bg-white bg-opacity-20 rounded-2xl flex items-center justify-center mb-6 mx-auto">
+                        <i class="fas fa-headset text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-center">Soporte Técnico 24/7</h3>
+                    <p class="text-center mb-6 opacity-90">
+                        Asistencia técnica continua con respuesta inmediata para garantizar la operatividad de tus sistemas críticos.
+                    </p>
+                    <div class="text-center">
+                        <span class="inline-block bg-white bg-opacity-20 px-4 py-2 rounded-full text-sm">Disponibilidad 99.9%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="proyectos" class="py-24 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-20 fade-in">
+                <span class="inline-block bg-gradient-to-r from-primary to-secondary text-white px-8 py-3 rounded-full text-xl font-bold mb-8">CASO DE ÉXITO</span>
+                <h2 class="section-title text-5xl font-bold mb-6 text-gray-800">Nuestro <span class="text-primary">Proyecto Estrella</span></h2>
+                <p class="text-2xl text-gray-600 max-w-4xl mx-auto">
+                    Descubre cómo transformamos la gestión de seguros de vehículos en Estados Unidos con nuestra solución CRM.
+                </p>
+            </div>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-white rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:-translate-y-3">
+                    <div class="relative">
+                        <img src="https://placehold.co/1200x600/3b82f6/white?text=MAGNATECRM" alt="MagnateCRM" class="w-full h-80 md:h-96 object-cover">
+                        <div class="absolute top-4 left-4 bg-secondary text-white px-4 py-2 rounded-2xl font-bold text-sm">+400% Eficiencia</div>
+                        <div class="absolute bottom-4 left-4 bg-white bg-opacity-90 backdrop-blur-sm px-4 py-2 rounded-2xl">
+                            <span class="text-primary font-bold">CRM PARA SEGUROS DE VEHÍCULOS</span>
+                        </div>
+                    </div>
+                    <div class="p-10">
+                        <div class="flex items-center mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-award text-white text-2xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-3xl font-bold mb-2 text-gray-800">MagnateCRM</h3>
+                                <p class="text-primary font-bold text-xl">Sistema CRM para Seguros de Vehículos en Estados Unidos</p>
+                            </div>
+                        </div>
+                        
+                        <div class="grid md:grid-cols-3 gap-6 mb-8 p-6 bg-gradient-to-r from-softBlue to-softSky rounded-2xl">
+                            <div class="text-center">
+                                <div class="text-3xl font-black text-primary mb-2">400%</div>
+                                <div class="text-gray-700 font-medium">Aumento en Eficiencia</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-3xl font-black text-secondary mb-2">25K+</div>
+                                <div class="text-gray-700 font-medium">Clientes Gestionados</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-3xl font-black text-accent mb-2">98%</div>
+                                <div class="text-gray-700 font-medium">Satisfacción Clientes</div>
+                            </div>
+                        </div>
+                        
+                        <h4 class="text-2xl font-bold mb-4 text-gray-800">Desafío del Cliente</h4>
+                        <p class="text-gray-700 mb-6 leading-relaxed">
+                            Una importante compañía de seguros de vehículos en Estados Unidos enfrentaba dificultades para gestionar eficientemente a sus clientes, procesar pólizas y mantener un seguimiento efectivo de renovaciones y siniestros.
+                        </p>
+                        
+                        <h4 class="text-2xl font-bold mb-4 text-gray-800">Nuestra Solución</h4>
+                        <p class="text-gray-700 mb-6 leading-relaxed">
+                            Desarrollamos MagnateCRM, un sistema CRM especializado para la industria de seguros de vehículos que automatiza el proceso completo desde la cotización hasta la renovación, incluyendo gestión de siniestros, recordatorios automáticos y análisis predictivo de clientes con mayor probabilidad de renovación.
+                        </p>
+                        
+                        <h4 class="text-2xl font-bold mb-4 text-gray-800">Resultados Obtenidos</h4>
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-start">
+                                <div class="w-6 h-6 bg-primary rounded-full flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                    <i class="fas fa-check text-white text-xs"></i>
+                                </div>
+                                <span class="text-gray-700">Aumento del 400% en eficiencia operativa</span>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="w-6 h-6 bg-primary rounded-full flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                    <i class="fas fa-check text-white text-xs"></i>
+                                </div>
+                                <span class="text-gray-700">Reducción del 65% en tiempo de procesamiento de pólizas</span>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="w-6 h-6 bg-primary rounded-full flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                    <i class="fas fa-check text-white text-xs"></i>
+                                </div>
+                                <span class="text-gray-700">Incremento del 35% en tasa de renovación de pólizas</span>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="w-6 h-6 bg-primary rounded-full flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                    <i class="fas fa-check text-white text-xs"></i>
+                                </div>
+                                <span class="text-gray-700">Mejora del 98% en satisfacción del cliente</span>
+                            </li>
+                        </ul>
+                        
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-500 font-medium">Implementado: 2023 | Estados Unidos</span>
+                            <a href="#contacto" class="glow-button inline-flex items-center bg-gradient-to-r from-primary to-secondary text-white px-6 py-3 rounded-2xl font-bold hover:from-secondary hover:to-primary transition-all duration-300">
+                                <i class="fas fa-rocket mr-2"></i> ¡QUIERO ESTE CRM!
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-24 bg-gradient-to-r from-softBlue to-softSky">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-20 fade-in">
+                <span class="inline-block bg-gradient-to-r from-primary to-secondary text-white px-8 py-3 rounded-full text-xl font-bold mb-8">TESTIMONIOS</span>
+                <h2 class="section-title text-5xl font-bold mb-6 text-gray-800">Lo que dicen nuestros <span class="text-primary">clientes</span></h2>
+                <p class="text-2xl text-gray-600 max-w-4xl mx-auto">
+                    Experiencias reales de empresas que han transformado sus operaciones con nuestras soluciones.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-10">
+                <div class="bg-white p-10 rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-500 border-l-8 border-primary">
+                    <div class="flex items-center mb-6">
+                        <div class="text-4xl text-primary mr-4">
+                            <i class="fas fa-quote-left"></i>
+                        </div>
+                        <div class="text-5xl font-black text-primary">5.0</div>
+                    </div>
+                    <p class="text-gray-700 text-xl mb-8 leading-relaxed">
+                        "MagnateCRM revolucionó completamente nuestra operación en Estados Unidos. La eficiencia aumentó en un 400% y nuestros clientes están más satisfechos que nunca."
+                    </p>
+                    <div class="flex items-center">
+                        <div class="w-16 h-16 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center text-white font-black text-xl mr-4">
+                            JD
+                        </div>
+                        <div>
+                            <div class="font-black text-gray-800 text-lg">John Davis</div>
+                            <div class="text-primary font-bold">CEO, AutoShield Insurance USA</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-10 rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-500 border-l-8 border-secondary">
+                    <div class="flex items-center mb-6">
+                        <div class="text-4xl text-secondary mr-4">
+                            <i class="fas fa-quote-left"></i>
+                        </div>
+                        <div class="text-5xl font-black text-secondary">5.0</div>
+                    </div>
+                    <p class="text-gray-700 text-xl mb-8 leading-relaxed">
+                        "El equipo de H&S entendió perfectamente nuestras necesidades y entregó una solución a medida que superó todas nuestras expectativas. ¡Soporte excepcional!"
+                    </p>
+                    <div class="flex items-center">
+                        <div class="w-16 h-16 rounded-full bg-gradient-to-r from-secondary to-primary flex items-center justify-center text-white font-black text-xl mr-4">
+                            MS
+                        </div>
+                        <div>
+                            <div class="font-black text-gray-800 text-lg">María Sánchez</div>
+                            <div class="text-secondary font-bold">Directora de Operaciones, SegurosPerú</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-10 rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-500 border-l-8 border-accent">
+                    <div class="flex items-center mb-6">
+                        <div class="text-4xl text-accent mr-4">
+                            <i class="fas fa-quote-left"></i>
+                        </div>
+                        <div class="text-5xl font-black text-accent">5.0</div>
+                    </div>
+                    <p class="text-gray-700 text-xl mb-8 leading-relaxed">
+                        "La implementación fue impecable y el soporte continuo es excepcional. Hemos reducido costos operativos en un 45% gracias a la solución que H&S desarrolló para nosotros."
+                    </p>
+                    <div class="flex items-center">
+                        <div class="w-16 h-16 rounded-full bg-gradient-to-r from-accent to-secondary flex items-center justify-center text-white font-black text-xl mr-4">
+                            CP
+                        </div>
+                        <div>
+                            <div class="font-black text-gray-800 text-lg">Carlos Pérez</div>
+                            <div class="text-accent font-bold">CTO, FinanzasTech</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contacto" class="py-24 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 fade-in">
+                <span class="inline-block bg-gradient-to-r from-primary to-secondary text-white px-8 py-3 rounded-full text-xl font-bold mb-8">¡CONTÁCTANOS!</span>
+                <h2 class="section-title text-5xl font-bold mb-6 text-gray-800">¿Listo para <span class="text-primary">transformar</span> tu empresa?</h2>
+                <p class="text-2xl text-gray-600 max-w-3xl mx-auto">
+                    Nuestro equipo de expertos está listo para diseñar la solución perfecta para tus necesidades específicas.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="fade-in">
+                    <div class="space-y-8 mb-12">
+                        <div class="flex items-start p-6 bg-gradient-to-r from-softBlue to-softSky rounded-3xl hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                            <div class="w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center mr-6 flex-shrink-0">
+                                <i class="fas fa-map-marker-alt text-2xl text-primary"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-2xl font-bold mb-2 text-gray-800">Ubicación</h4>
+                                <p class="text-xl text-gray-600">Iquitos - Loreto, Perú</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start p-6 bg-gradient-to-r from-softBlue to-softSky rounded-3xl hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                            <div class="w-16 h-16 bg-secondary/20 rounded-2xl flex items-center justify-center mr-6 flex-shrink-0">
+                                <i class="fas fa-envelope text-2xl text-secondary"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-2xl font-bold mb-2 text-gray-800">Email</h4>
+                                <p class="text-xl text-gray-600">magnatecrm@gmail.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start p-6 bg-gradient-to-r from-softBlue to-softSky rounded-3xl hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                            <div class="w-16 h-16 bg-accent/20 rounded-2xl flex items-center justify-center mr-6 flex-shrink-0">
+                                <i class="fas fa-phone text-2xl text-accent"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-2xl font-bold mb-2 text-gray-800">Teléfono</h4>
+                                <p class="text-xl text-gray-600">+51 965 615 594</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start p-6 bg-gradient-to-r from-softBlue to-softSky rounded-3xl hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                            <div class="w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center mr-6 flex-shrink-0">
+                                <i class="fas fa-headset text-2xl text-primary"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-2xl font-bold mb-2 text-gray-800">Soporte 24/7</h4>
+                                <p class="text-xl text-gray-600">Siempre disponibles para ti</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div class="inline-flex bg-gradient-to-r from-primary to-secondary text-white px-6 py-3 rounded-2xl font-bold">
+                            <i class="fas fa-shield-alt mr-3 mt-1"></i>
+                            <div>
+                                <div class="text-lg">Soporte Técnico Inmediato</div>
+                                <div class="text-sm opacity-90">Llámanos ahora: 965 615 594</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="fade-in">
+                    <form class="bg-gradient-to-r from-softBlue to-softSky p-10 rounded-3xl shadow-2xl">
+                        <h3 class="section-title text-3xl font-bold mb-8 text-center text-gray-800">Solicita tu Consulta Gratuita</h3>
+                        <div class="grid md:grid-cols-2 gap-6 mb-6">
+                            <input type="text" placeholder="Nombre completo" class="bg-white bg-opacity-70 border border-white border-opacity-50 rounded-2xl px-6 py-4 focus:outline-none focus:border-primary text-gray-800 placeholder-gray-400 text-lg">
+                            <input type="email" placeholder="Email" class="bg-white bg-opacity-70 border border-white border-opacity-50 rounded-2xl px-6 py-4 focus:outline-none focus:border-primary text-gray-800 placeholder-gray-400 text-lg">
+                        </div>
+                        <input type="text" placeholder="Teléfono" class="w-full mb-6 bg-white bg-opacity-70 border border-white border-opacity-50 rounded-2xl px-6 py-4 focus:outline-none focus:border-primary text-gray-800 placeholder-gray-400 text-lg">
+                        <select class="w-full mb-6 bg-white bg-opacity-70 border border-white border-opacity-50 rounded-2xl px-6 py-4 focus:outline-none focus:border-primary text-gray-800 text-lg">
+                            <option value="" disabled selected>Selecciona un servicio</option>
+                            <option value="crm">Sistemas CRM (MagnateCRM)</option>
+                            <option value="erp">Sistemas ERP</option>
+                            <option value="comunicaciones">Comunicaciones Empresariales</option>
+                            <option value="soporte">Soporte Técnico</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                        <textarea placeholder="Describe tu proyecto o necesidad..." rows="5" class="w-full mb-6 bg-white bg-opacity-70 border border-white border-opacity-50 rounded-2xl px-6 py-4 focus:outline-none focus:border-primary text-gray-800 placeholder-gray-400 text-lg resize-none"></textarea>
+                        <button type="submit" class="glow-button w-full bg-gradient-to-r from-primary to-secondary text-white py-5 rounded-2xl font-bold text-xl hover:from-secondary hover:to-primary transition-all duration-300 transform hover:scale-105">
+                            <i class="fas fa-paper-plane mr-3"></i> ¡ENVIAR Y TRANSFORMAR!
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-12 mb-12">
+                <div>
+                    <div class="mb-6">
+                        <div class="company-title text-3xl text-white mb-1">H&S</div>
+                        <div class="subtitle text-sm text-primary">Soporte en Sistemas y Comunicaciones EIRL</div>
+                    </div>
+                    <p class="text-gray-400 mb-6 text-lg leading-relaxed">
+                        Empresa líder en soluciones tecnológicas integrales con sede en Iquitos, Loreto, sirviendo a clientes en Perú y Estados Unidos.
+                    </p>
+                    <div class="flex space-x-6">
+                        <a href="#" class="w-12 h-12 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center text-white hover:scale-110 transition-transform duration-300">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-12 h-12 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center text-white hover:scale-110 transition-transform duration-300">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="w-12 h-12 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center text-white hover:scale-110 transition-transform duration-300">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="w-12 h-12 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center text-white hover:scale-110 transition-transform duration-300">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="section-title text-2xl font-bold mb-6 text-white">Servicios</h3>
+                    <ul class="space-y-4 text-gray-400">
+                        <li><a href="#servicios" class="hover:text-white transition-colors text-lg hover:translate-x-2 transition-transform duration-300 flex items-center"><i class="fas fa-chevron-right text-primary mr-3 text-sm"></i> Sistemas CRM Inteligentes</a></li>
+                        <li><a href="#servicios" class="hover:text-white transition-colors text-lg hover:translate-x-2 transition-transform duration-300 flex items-center"><i class="fas fa-chevron-right text-primary mr-3 text-sm"></i> Sistemas ERP Integrales</a></li>
+                        <li><a href="#servicios" class="hover:text-white transition-colors text-lg hover:translate-x-2 transition-transform duration-300 flex items-center"><i class="fas fa-chevron-right text-primary mr-3 text-sm"></i> Comunicaciones Empresariales</a></li>
+                        <li><a href="#servicios" class="hover:text-white transition-colors text-lg hover:translate-x-2 transition-transform duration-300 flex items-center"><i class="fas fa-chevron-right text-primary mr-3 text-sm"></i> Soporte Técnico 24/7</a></li>
+                        <li><a href="#servicios" class="hover:text-white transition-colors text-lg hover:translate-x-2 transition-transform duration-300 flex items-center"><i class="fas fa-chevron-right text-primary mr-3 text-sm"></i> Consultoría Tecnológica</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="section-title text-2xl font-bold mb-6 text-white">Soluciones</h3>
+                    <ul class="space-y-4 text-gray-400">
+                        <li><a href="#soluciones" class="hover:text-white transition-colors text-lg hover:translate-x-2 transition-transform duration-300 flex items-center"><i class="fas fa-chevron-right text-primary mr-3 text-sm"></i> Automatización Inteligente</a></li>
+                        <li><a href="#soluciones" class="hover:text-white transition-colors text-lg hover:translate-x-2 transition-transform duration-300 flex items-center"><i class="fas fa-chevron-right text-primary mr-3 text-sm"></i> Ciberseguridad Proactiva</a></li>
+                        <li><a href="#soluciones" class="hover:text-white transition-colors text-lg hover:translate-x-2 transition-transform duration-300 flex items-center"><i class="fas fa-chevron-right text-primary mr-3 text-sm"></i> Infraestructura Cloud</a></li>
+                        <li><a href="#soluciones" class="hover:text-white transition-colors text-lg hover:translate-x-2 transition-transform duration-300 flex items-center"><i class="fas fa-chevron-right text-primary mr-3 text-sm"></i> Aplicaciones Móviles</a></li>
+                        <li><a href="#soluciones" class="hover:text-white transition-colors text-lg hover:translate-x-2 transition-transform duration-300 flex items-center"><i class="fas fa-chevron-right text-primary mr-3 text-sm"></i> Business Intelligence</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="section-title text-2xl font-bold mb-6 text-white">Contacto</h3>
+                    <ul class="space-y-4 text-gray-400">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-4 text-primary text-xl"></i>
+                            <span class="text-lg">Iquitos - Loreto, Perú</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-4 text-primary text-xl"></i>
+                            <span class="text-lg">magnatecrm@gmail.com</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone mr-4 text-primary text-xl"></i>
+                            <span class="text-lg">+51 965 615 594</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-clock mr-4 text-primary text-xl"></i>
+                            <span class="text-lg">Soporte 24/7, 365 días al año</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 text-center">
+                <p class="text-gray-400 text-lg">
+                    &copy; 2023 <span class="font-black text-white">H&S</span> - Soporte en Sistemas y Comunicaciones EIRL. Todos los derechos reservados.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Animation on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('appear');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            fadeElements.forEach(element => {
+                observer.observe(element);
+            });
+            
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        const headerOffset = 80;
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                        
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Active section highlighting
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            function updateActiveLink() {
+                let current = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    
+                    if (pageYOffset >= sectionTop - 200) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${current}`) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+            
+            window.addEventListener('scroll', updateActiveLink);
+            updateActiveLink(); // Initial call
+            
+            // Mobile menu toggle
+            const menuButton = document.querySelector('.md\\:hidden button');
+            if (menuButton) {
+                menuButton.addEventListener('click', function() {
+                    // This would toggle mobile menu in a real implementation
+                    alert('Mobile menu would toggle here');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
+```
